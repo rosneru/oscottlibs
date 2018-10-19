@@ -46,6 +46,12 @@ BOOST_AUTO_TEST_CASE( testStringAndNumbers )
 
   simpleString2 += " years ago.";
   BOOST_CHECK(simpleString2 == "It was -999 years ago.");
+
+  SimpleString a = "HalloHallo";
+  SimpleString b = 123;
+  SimpleString c = a + b;
+  BOOST_CHECK(c == "HalloHallo123");
+
 }
 
 BOOST_AUTO_TEST_CASE( testString )
