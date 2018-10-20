@@ -37,12 +37,12 @@ public:
   /**
    * Get C string equivalent
    */
-  char* C_str();
+  char* C_str() const;
 
   /**
    * Get length of string
    */
-  size_t Length();
+  size_t Length() const;
 
 
   /**

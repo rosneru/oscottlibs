@@ -66,12 +66,12 @@ SimpleString::~SimpleString()
   delete[] m_pBuf;
 }
 
-char* SimpleString::C_str()
+char* SimpleString::C_str() const
 {
   return m_pBuf;
 }
 
-size_t SimpleString::Length()
+size_t SimpleString::Length() const
 {
   return m_Len;
 }
