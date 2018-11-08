@@ -260,7 +260,7 @@ void* LinkedList::searchList(void* p_pItemSearch, int(fcmp) (void* pItList, void
   return NULL;
 }
 
-size_t LinkedList::Size()
+size_t LinkedList::Size() const
 {
   return m_Size;
 }

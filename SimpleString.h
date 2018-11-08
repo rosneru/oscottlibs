@@ -16,8 +16,8 @@ public:
   SimpleString();
   SimpleString(const char* p_pTxt);
   SimpleString(const SimpleString& other);
-  SimpleString(char p_Character, int p_Count);
-  SimpleString(long p_Number);
+  SimpleString(const char p_Character, const int p_Count);
+  SimpleString(const long p_Number);
 
   ~SimpleString();
 
@@ -37,7 +37,7 @@ public:
   /**
    * Get C string equivalent
    */
-  char* C_str() const;
+  const char* C_str() const;
 
   /**
    * Get length of string
@@ -59,7 +59,7 @@ public:
    * Number of characters to include in the substring. If the string
    * is shorter, as many characters as possible are used.
    */
-  SimpleString SubStr(size_t p_Index, size_t p_Len);
+  SimpleString SubStr(size_t p_Index, size_t p_Len) const;
 
 
   /**

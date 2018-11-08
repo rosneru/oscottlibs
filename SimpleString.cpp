@@ -24,7 +24,7 @@ SimpleString::SimpleString(const SimpleString& other)
   strcpy(m_pBuf, other.m_pBuf);
 }
 
-SimpleString::SimpleString(char p_Character, int p_Count)
+SimpleString::SimpleString(const char p_Character, const int p_Count)
   : m_Len(p_Count),
     m_pBuf(new char[m_Len + 1])
 {
@@ -36,7 +36,7 @@ SimpleString::SimpleString(char p_Character, int p_Count)
   m_pBuf[p_Count]='\0';
 }
 
-SimpleString::SimpleString(long p_Number)
+SimpleString::SimpleString(const long p_Number)
   : m_Len(0),
     m_pBuf(NULL)
 {
@@ -66,7 +66,7 @@ SimpleString::~SimpleString()
   delete[] m_pBuf;
 }
 
-char* SimpleString::C_str() const
+const char* SimpleString::C_str() const
 {
   return m_pBuf;
 }
@@ -76,7 +76,7 @@ size_t SimpleString::Length() const
   return m_Len;
 }
 
-SimpleString SimpleString::SubStr(size_t p_Index, size_t p_Len)
+SimpleString SimpleString::SubStr(size_t p_Index, size_t p_Len) const
 {
   if(p_Len > m_Len)
   {
