@@ -379,7 +379,7 @@ SimpleString& SimpleString::operator+=(long p_Number)
   return *this;
 }
 
-bool SimpleString::operator==(const SimpleString& p_Other)
+bool SimpleString::operator==(const SimpleString& p_Other) const
 {
   if(strcmp(m_pBuf, p_Other.m_pBuf) == 0)
   {
@@ -391,7 +391,7 @@ bool SimpleString::operator==(const SimpleString& p_Other)
   }
 }
 
-bool SimpleString::operator<(const SimpleString& p_Other)
+bool SimpleString::operator<(const SimpleString& p_Other) const
 {
   if(strcmp(m_pBuf, p_Other.m_pBuf) < 0)
   {
@@ -403,7 +403,7 @@ bool SimpleString::operator<(const SimpleString& p_Other)
   }
 }
 
-bool SimpleString::operator>(const SimpleString& p_Other)
+bool SimpleString::operator>(const SimpleString& p_Other) const
 {
   if(strcmp(m_pBuf, p_Other.m_pBuf) > 0)
   {

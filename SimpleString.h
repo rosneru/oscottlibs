@@ -29,9 +29,9 @@ public:
   SimpleString& operator+=(const SimpleString& p_Other);
   SimpleString& operator+=(const char* p_pOtherChar);
   SimpleString& operator+=(long p_Number);
-  bool operator==(const SimpleString& p_Other);
-  bool operator<(const SimpleString& p_Other);
-  bool operator>(const SimpleString& p_Other);
+  bool operator==(const SimpleString& p_Other) const;
+  bool operator<(const SimpleString& p_Other) const;
+  bool operator>(const SimpleString& p_Other) const;
   char& operator[](size_t p_Index);
 
   /**
