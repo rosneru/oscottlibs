@@ -301,6 +301,100 @@ BOOST_AUTO_TEST_CASE( testString )
 }
 
 
+BOOST_AUTO_TEST_CASE( testLinkedListTypical )
+{
+  SimpleString line1 = "Line 1";
+  SimpleString line2 = "Line 2";
+  SimpleString line3 = "Line 3";
+  SimpleString line4 = "Line 4";
+
+  LinkedList linkedList;
+  linkedList.InsertTail(&line1);
+  linkedList.InsertTail(&line2);
+  linkedList.InsertTail(&line3);
+  linkedList.InsertTail(&line4);
+
+  BOOST_CHECK_EQUAL(linkedList.GetIndexed(0), &line1);
+  BOOST_CHECK_EQUAL(linkedList.GetIndexed(1), &line2);
+  BOOST_CHECK_EQUAL(linkedList.GetIndexed(2), &line3);
+  BOOST_CHECK_EQUAL(linkedList.GetIndexed(3), &line4);
+
+  BOOST_CHECK_EQUAL(linkedList.GetFirst(), &line1);
+  BOOST_CHECK_EQUAL(linkedList.GetNext(), &line2);
+  BOOST_CHECK_EQUAL(linkedList.GetNext(), &line3);
+  BOOST_CHECK_EQUAL(linkedList.GetNext(), &line4);
+  BOOST_CHECK_EQUAL(linkedList.GetNext(), (void*)nullptr);
+}
+
+BOOST_AUTO_TEST_CASE( testLinkedListInsertBefore )
+{
+  char caLine1[] = {"ABC"};
+  char caLine2[] = {"DEF"};
+  char caLine3[] = {"GHI"};
+  char caIns1[] = {"ins1"};
+  char caIns2[] = {"ins2"};
+
+  // Create list
+  LinkedList linkedList;
+
+  // Fill list, performe some navigations and check if behavior is as wanted
+  BOOST_CHECK(linkedList.GetFirst() == nullptr);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 0);
+
+  BOOST_CHECK_EQUAL(linkedList.InsertBefore(caLine1), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 1);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
+  BOOST_CHECK_EQUAL(linkedList.InsertTail(caLine2), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 2);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 1);
+  BOOST_CHECK_EQUAL(linkedList.InsertTail(caLine3), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 3);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 2);
+  BOOST_CHECK(linkedList.GetSelected() == caLine3);
+  BOOST_CHECK_EQUAL(linkedList.InsertBefore(caIns1), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 4);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 2);
+  BOOST_CHECK(linkedList.GetSelected() == caIns1);
+  BOOST_CHECK(linkedList.GetLast() == caLine3);
+  BOOST_CHECK(linkedList.GetSelected() == caLine3);
+  BOOST_CHECK(linkedList.GetPrev() == caIns1);
+  BOOST_CHECK(linkedList.GetPrev() == caLine2);
+  BOOST_CHECK(linkedList.GetFirst() == caLine1);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
+  BOOST_CHECK_EQUAL(linkedList.InsertBefore(caIns2), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 5);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
+  BOOST_CHECK(linkedList.GetFirst() == caIns2);
+  BOOST_CHECK(linkedList.GetNext() == caLine1);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 1);
+}
+
+BOOST_AUTO_TEST_CASE( testLinkedListInsertBehind )
+{
+  char caLine1[] = {"ABC"};
+  char caLine2[] = {"DEF"};
+  char caLine3[] = {"GHI"};
+  char caIns1[] = {"ins1"};
+  char caIns2[] = {"ins2"};
+
+  // Create list
+  LinkedList linkedList;
+
+  // Fill list, performe some navigations and check if behavior is as wanted
+  BOOST_CHECK(linkedList.GetFirst() == nullptr);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 0);
+
+  BOOST_CHECK_EQUAL(linkedList.InsertBehind(caLine1), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 1);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
+  BOOST_CHECK_EQUAL(linkedList.InsertBehind(caLine2), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 2);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 1);
+  BOOST_CHECK_EQUAL(linkedList.InsertBehind(caLine3), true);
+  BOOST_CHECK_EQUAL(linkedList.Size(), 3);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 2);
+}
+
 BOOST_AUTO_TEST_CASE( testLinkedListBasic )
 {
   char caTop[] = {"Top"};

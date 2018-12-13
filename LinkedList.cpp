@@ -6,7 +6,8 @@ LinkedList::LinkedList()
   : m_pFirst(NULL),
     m_pActual(NULL),
     m_pLast(NULL),
-    m_Size(0)
+    m_Size(0),
+    m_Index(0)
 {
 
 }
@@ -18,200 +19,155 @@ LinkedList::~ LinkedList(void)
 
 bool LinkedList::RemoveItem()
 {
-  LinkedListNode* tmp;
-  tmp = m_pActual;
+  LinkedListNode* pItemToRemove;
+  pItemToRemove = m_pActual;
 
-  if (m_pActual != NULL)
-  {
-    if (m_pActual->m_pNxt != NULL)
-    {
-      if (m_pActual->m_pPrv != NULL)
-      {
-        m_pActual->m_pPrv->m_pNxt = m_pActual->m_pNxt;
-      }
-      else
-      {
-        m_pActual->m_pNxt->m_pPrv = NULL;
-        m_pFirst = m_pActual->m_pNxt;
-      }
-
-      m_pActual->m_pNxt->m_pPrv = m_pActual->m_pPrv;
-      m_pActual = m_pActual->m_pNxt;
-      delete tmp;
-      m_Size--;
-      return true;
-    }
-    else if (m_pActual->m_pPrv != NULL)
-    {
-      if (m_pActual->m_pNxt != NULL)
-      {
-        m_pActual->m_pNxt->m_pPrv = m_pActual->m_pPrv;
-      }
-      else
-      {
-        m_pActual->m_pPrv->m_pNxt = NULL;
-        m_pLast = m_pActual->m_pPrv;
-      }
-
-      m_pActual->m_pPrv->m_pNxt = m_pActual->m_pNxt;
-      m_pActual = m_pActual->m_pPrv;
-      delete tmp;
-      m_Size--;
-      return true;
-    }
-    else
-    {
-      m_pFirst = m_pLast = m_pActual = NULL;
-      delete tmp;
-      m_Size--;
-      return true;
-    }
-  }
-  else
+  if (pItemToRemove == NULL)
   {
     return false;
   }
 
+  if(pItemToRemove->m_pPrv != NULL && pItemToRemove->m_pNxt != NULL)
+  {
+    // item has ancestor and successor
+    m_pActual->m_pPrv->m_pNxt = m_pActual->m_pNxt;
+    m_pActual->m_pNxt->m_pPrv = m_pActual->m_pPrv;
+    m_pActual = m_pActual->m_pNxt;
+
+    m_Size--;
+  }
+  else if(pItemToRemove->m_pPrv == NULL && pItemToRemove->m_pNxt != NULL)
+  {
+    // item has only successor; is first
+    m_pFirst = m_pActual->m_pNxt;
+    m_pFirst->m_pPrv = NULL;
+    m_pActual = m_pFirst;
+
+    m_Size--;
+  }
+  else if(pItemToRemove->m_pPrv != NULL && pItemToRemove->m_pNxt == NULL)
+  {
+    // item has only ancestor; is last
+    m_pLast = m_pActual->m_pPrv;
+    m_pLast->m_pNxt = NULL;
+    m_pActual = m_pLast;
+
+    m_Size--;
+    m_Index--;
+  }
+  else
+  {
+    // item is last remaining item in list
+    m_pFirst = m_pLast = m_pActual = NULL;
+    m_Size = m_Index = NULL;
+  }
+
+  delete pItemToRemove;
+  return true;
 }
 
 
 bool LinkedList::InsertHead(void* p_pItemIns)
 {
-  LinkedListNode* tmp;
+  LinkedListNode* pInserted = NULL;
 
   if (m_pFirst == NULL)
   {
-    if ((m_pFirst = new LinkedListNode(p_pItemIns, NULL, NULL)) != NULL)
-    {
-      m_pLast = m_pActual = m_pFirst;
-      m_Size++;
-      return true;
-    }
-    else
+    if ((m_pFirst = new LinkedListNode(p_pItemIns, NULL, NULL)) == NULL)
     {
       return false;
     }
+
+    m_pLast = m_pActual = m_pFirst;
+    m_Size = 1;
+    m_Index = 0;
   }
   else
   {
-    tmp = m_pFirst;
-
-    if ((m_pFirst = new LinkedListNode(p_pItemIns, NULL, m_pFirst)) != NULL)
-    {
-      tmp->m_pPrv = m_pFirst;
-      m_pActual = m_pFirst;
-      m_Size++;
-      return true;
-    }
-    else
+    if ((pInserted = new LinkedListNode(p_pItemIns, NULL, m_pFirst)) == NULL)
     {
       return false;
     }
+
+    m_pFirst->m_pPrv = pInserted;
+    m_pFirst = m_pActual = pInserted;
+    m_Size++;
+    m_Index = 0;
   }
+
+  return true;
 }
 
 
 bool LinkedList::InsertTail(void* p_pItemIns)
 {
-  LinkedListNode* tmp;
+  LinkedListNode* pInserted = NULL;
 
   if (m_pLast == NULL)
   {
-    if ((m_pLast = new LinkedListNode(p_pItemIns, NULL, NULL)) != NULL)
-    {
-      m_pFirst = m_pActual = m_pLast;
-      m_Size++;
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+    return InsertHead(p_pItemIns);
   }
   else
   {
-    tmp = m_pLast;
-
-    if ((m_pLast = new LinkedListNode(p_pItemIns, m_pLast, NULL)) != NULL)
-    {
-      tmp->m_pNxt = m_pLast;
-      m_pActual = m_pLast;
-      m_Size++;
-      return true;
-    }
-    else
+    if ((pInserted = new LinkedListNode(p_pItemIns, m_pLast, NULL)) == NULL)
     {
       return false;
     }
+
+    m_pLast->m_pNxt = pInserted;
+    m_pLast = m_pActual = pInserted;
+    m_Size++;
+    m_Index = m_Size-1;
   }
+
+  return true;
 }
 
 
 bool LinkedList::InsertBefore(void* p_pItemIns)
 {
-  LinkedListNode* tmp;
+  LinkedListNode* pInserted = NULL;
 
-  if (m_pActual == NULL)
+  if ((m_pActual == NULL) || (m_pActual == m_pFirst))
   {
-    return InsertTail(p_pItemIns);
+    return InsertHead(p_pItemIns);
   }
 
-  if ((tmp = new LinkedListNode(p_pItemIns, m_pActual->m_pPrv, m_pActual)) != NULL)
-  {
-    if (m_pActual->m_pPrv != NULL)
-    {
-      m_pActual->m_pPrv->m_pNxt = tmp;
-    }
-    else
-    {
-      m_pFirst = tmp;
-    }
-
-    tmp->m_pPrv = m_pActual->m_pPrv;
-    tmp->m_pNxt = m_pActual;
-    m_pActual->m_pPrv = tmp;
-    m_pActual = tmp;
-    m_Size++;
-    return true;
-  }
-  else
+  if ((pInserted = new LinkedListNode(p_pItemIns, m_pActual->m_pPrv, m_pActual)) == NULL)
   {
     return false;
   }
+
+  m_pActual->m_pPrv->m_pNxt = pInserted;
+  m_pActual->m_pPrv = pInserted;
+  m_pActual = pInserted;
+
+  m_Size++;
+  return true;
 }
 
 
 bool LinkedList::InsertBehind(void* p_pItemIns)
 {
-  LinkedListNode* tmp;
+  LinkedListNode* pInserted = NULL;
 
-  if (m_pActual == NULL)
+  if ((m_pActual == NULL) || (m_pActual == m_pLast))
   {
-    return InsertHead(p_pItemIns);
+    return InsertTail(p_pItemIns);
   }
 
-  if ((tmp = new LinkedListNode(p_pItemIns, m_pActual, m_pActual->m_pNxt)) != NULL)
-  {
-    if (m_pActual->m_pNxt != NULL)
-    {
-      m_pActual->m_pNxt->m_pPrv = tmp;
-    }
-    else
-    {
-      m_pLast = tmp;
-    }
-
-    tmp->m_pPrv = m_pActual;
-    tmp->m_pNxt = m_pActual->m_pNxt;
-    m_pActual->m_pNxt = tmp;
-    m_pActual = tmp;
-    m_Size++;
-    return true;
-  }
-  else
+  if ((pInserted = new LinkedListNode(p_pItemIns, m_pActual, m_pActual->m_pNxt)) == NULL)
   {
     return false;
   }
+
+  m_pActual->m_pNxt->m_pPrv = pInserted;
+  m_pActual->m_pNxt = pInserted;
+  m_pActual = pInserted;
+
+  m_Size++;
+  m_Index++;
+  return true;
 }
 
 
@@ -264,68 +220,70 @@ size_t LinkedList::Size() const
 {
   return m_Size;
 }
+
+size_t LinkedList::Index() const
+{
+  return m_Index;
+}
+
 void* LinkedList::GetFirst(void)
 {
-  if (m_pFirst != NULL)
+  if (m_pFirst == NULL)
   {
-    m_pActual = m_pFirst;
-    return m_pActual->m_pData;
+    return NULL;
   }
 
-  return NULL;
+  m_Index = 0;
+  m_pActual = m_pFirst;
+  return m_pActual->m_pData;
 }
 
 void* LinkedList::GetLast(void)
 {
-  if (m_pLast != NULL)
+  if (m_pLast == NULL)
   {
-    m_pActual = m_pLast;
-    return m_pActual->m_pData;
+    return NULL;
   }
 
-  return NULL;
+  m_Index = m_Size-1;
+  m_pActual = m_pLast;
+  return m_pActual->m_pData;
 }
 
 void* LinkedList::GetNext(void)
 {
-  if(m_pActual == NULL)
+  if((m_pActual == NULL) || (m_pActual->m_pNxt == NULL))
   {
     return NULL;
   }
 
-  if (m_pActual->m_pNxt != NULL)
-  {
-    m_pActual = m_pActual->m_pNxt;
-    return m_pActual->m_pData;
-  }
-
-  return NULL;
+  m_Index++;
+  m_pActual = m_pActual->m_pNxt;
+  return m_pActual->m_pData;
 }
 
 void* LinkedList::GetPrev(void)
 {
-  if(m_pActual == NULL)
+  if((m_pActual == NULL) || (m_pActual->m_pPrv == NULL))
   {
     return NULL;
   }
 
-  if (m_pActual->m_pPrv != NULL)
-  {
-    m_pActual = m_pActual->m_pPrv;
-    return m_pActual->m_pData;
-  }
+  m_Index--;
+  m_pActual = m_pActual->m_pPrv;
+  return m_pActual->m_pData;
 
   return NULL;
 }
 
 void* LinkedList::GetSelected(void)
 {
-  if (m_pActual != NULL)
+  if (m_pActual == NULL)
   {
-    return m_pActual->m_pData;
+    return NULL;
   }
 
-  return NULL;
+  return m_pActual->m_pData;
 }
 
 void* LinkedList::GetIndexed(size_t p_Id)

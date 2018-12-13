@@ -43,9 +43,11 @@ public:
   void* searchList(void* p_pItemSearch, int(fcmp) (void* pItList, void* pItNew));
 
   size_t Size() const;
+  size_t Index() const;
 
 private:
   size_t m_Size;
+  size_t m_Index;
 };
 
 #endif
