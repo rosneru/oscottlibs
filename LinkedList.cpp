@@ -288,17 +288,52 @@ void* LinkedList::GetSelected(void)
 
 void* LinkedList::GetIndexed(size_t p_Id)
 {
-  size_t currIdx = 0;
-  void* pItem = GetFirst();
-  while (currIdx != p_Id)
+  if(m_Size == 0)
   {
-    currIdx++;
-    pItem = GetNext();
-    if(pItem == NULL)
-    {
-      return pItem;
-    }
+    return NULL;
   }
 
-  return pItem;
+  if(p_Id > (m_Size - 1))
+  {
+    return NULL;
+  }
+
+  int delta = p_Id - m_Index;
+  if(delta < 0)
+  {
+    while(m_Index > p_Id)
+    {
+      GetPrev();
+    }
+
+    return m_pActual->m_pData;
+  }
+  else if(delta > 0)
+  {
+    while(m_Index < p_Id)
+    {
+      GetNext();
+    }
+
+    return m_pActual->m_pData;
+  }
+  else
+  {
+    return m_pActual->m_pData;
+  }
+
+
+//  size_t currIdx = 0;
+//  void* pItem = GetFirst();
+//  while (currIdx != p_Id)
+//  {
+//    currIdx++;
+//    pItem = GetNext();
+//    if(pItem == NULL)
+//    {
+//      return pItem;
+//    }
+//  }
+
+//  return pItem;
 }

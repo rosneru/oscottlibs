@@ -315,11 +315,16 @@ BOOST_AUTO_TEST_CASE( testLinkedListTypical )
   linkedList.InsertTail(&line4);
 
   BOOST_CHECK_EQUAL(linkedList.GetIndexed(0), &line1);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
   BOOST_CHECK_EQUAL(linkedList.GetIndexed(1), &line2);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 1);
   BOOST_CHECK_EQUAL(linkedList.GetIndexed(2), &line3);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 2);
   BOOST_CHECK_EQUAL(linkedList.GetIndexed(3), &line4);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 3);
 
   BOOST_CHECK_EQUAL(linkedList.GetFirst(), &line1);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
   BOOST_CHECK_EQUAL(linkedList.GetNext(), &line2);
   BOOST_CHECK_EQUAL(linkedList.GetNext(), &line3);
   BOOST_CHECK_EQUAL(linkedList.GetNext(), &line4);
@@ -552,11 +557,17 @@ BOOST_AUTO_TEST_CASE( testLinkedListExtended )
 
   BOOST_CHECK_EQUAL(linkedList.Size(), 5);
   BOOST_CHECK(linkedList.GetIndexed(0) == itemIdx0);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
   BOOST_CHECK(linkedList.GetIndexed(5) == nullptr);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 0);
   BOOST_CHECK(linkedList.GetIndexed(4) == itemIdx4);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 4);
   BOOST_CHECK(linkedList.GetIndexed(1) == itemIdx1);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 1);
   BOOST_CHECK(linkedList.GetIndexed(2) == itemIdx2);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 2);
   BOOST_CHECK(linkedList.GetIndexed(3) == itemIdx3);
+  BOOST_CHECK_EQUAL(linkedList.Index(), 3);
   BOOST_CHECK(linkedList.GetSelected() == itemIdx3);
 }
 
