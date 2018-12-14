@@ -73,6 +73,11 @@ class Array {
       return *(m_pData + index);
     }
 
+    T* Data() const
+    {
+      return m_pData;
+    }
+
     size_t Size() const
     {
       return m_Size;

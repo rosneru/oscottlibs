@@ -88,6 +88,24 @@ BOOST_AUTO_TEST_CASE( test_Array_WithObjects )
   BOOST_CHECK_EQUAL(arr[4]->C_str(), "String 1");
 }
 
+BOOST_AUTO_TEST_CASE( test_Array_pointerOperations )
+{
+  Array<int> arr;
+  arr.Push(1);
+  arr.Push(2);
+  arr.Push(3);
+  arr.Push(4);
+  arr.Push(5);
+
+  int* pData = arr.Data();
+
+  BOOST_CHECK_EQUAL(pData[0], 1);
+  BOOST_CHECK_EQUAL(pData[1], 2);
+  BOOST_CHECK_EQUAL(pData[2], 3);
+  BOOST_CHECK_EQUAL(pData[3], 4);
+  BOOST_CHECK_EQUAL(pData[4], 5);
+}
+
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )
 {
   SimpleString simpleStringTestConstr1(12345);
