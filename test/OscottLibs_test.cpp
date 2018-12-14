@@ -56,11 +56,11 @@ BOOST_AUTO_TEST_CASE( test_Array_Basic )
   BOOST_CHECK_EQUAL(arr.Size(), 19);
   BOOST_CHECK_EQUAL(arr.Capacity(), 40);
 
-  BOOST_CHECK_EQUAL(arr.Get(0), 1);
-  BOOST_CHECK_EQUAL(arr.Get(1), 2);
-  BOOST_CHECK_EQUAL(arr.Get(2), 3);
+  BOOST_CHECK_EQUAL(arr[0], 1);
+  BOOST_CHECK_EQUAL(arr[1], 2);
+  BOOST_CHECK_EQUAL(arr[2], 3);
 
-  BOOST_CHECK_EQUAL(arr.Get(18), 19);
+  BOOST_CHECK_EQUAL(arr[18], 19);
 
 }
 
@@ -81,11 +81,11 @@ BOOST_AUTO_TEST_CASE( test_Array_WithObjects )
   BOOST_CHECK_EQUAL(arr.Size(), 5);
   BOOST_CHECK_EQUAL(arr.Capacity(), 10);
 
-  BOOST_CHECK_EQUAL(arr.Get(0)->C_str(), "String 1");
-  BOOST_CHECK_EQUAL(arr.Get(1)->C_str(), "String 2");
-  BOOST_CHECK_EQUAL(arr.Get(2)->C_str(), "String 3");
-  BOOST_CHECK_EQUAL(arr.Get(3)->C_str(), "String 1");
-  BOOST_CHECK_EQUAL(arr.Get(4)->C_str(), "String 1");
+  BOOST_CHECK_EQUAL(arr[0]->C_str(), "String 1");
+  BOOST_CHECK_EQUAL(arr[1]->C_str(), "String 2");
+  BOOST_CHECK_EQUAL(arr[2]->C_str(), "String 3");
+  BOOST_CHECK_EQUAL(arr[3]->C_str(), "String 1");
+  BOOST_CHECK_EQUAL(arr[4]->C_str(), "String 1");
 }
 
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )
