@@ -12,10 +12,69 @@
     #define BOOST_TEST_DYN_LINK
 #endif
 #include <boost/test/unit_test.hpp>
+#include "Array.h"
 #include "SimpleString.h"
 #include "LinkedList.h"
 
+BOOST_AUTO_TEST_CASE( test_Array_Basic )
+{
+  Array<int> arr;
+  arr.Push(1);
+  arr.Push(2);
+  arr.Push(3);
+  arr.Push(4);
+  arr.Push(5);
+  arr.Push(6);
+  arr.Push(7);
+  arr.Push(8);
+  arr.Push(9);
+  arr.Push(10);
+  arr.Push(11);
+  arr.Push(12);
+  arr.Push(13);
+  arr.Push(14);
+  arr.Push(15);
 
+  BOOST_CHECK_EQUAL(arr.Size(), 15);
+  BOOST_CHECK_EQUAL(arr.Capacity(), 20);
+
+  arr.Push(16);
+  arr.Push(17);
+  arr.Push(18);
+  arr.Push(19);
+  arr.Push(20);
+  arr.Push(21);
+
+  BOOST_CHECK_EQUAL(arr.Size(), 21);
+  BOOST_CHECK_EQUAL(arr.Capacity(), 40);
+
+  BOOST_CHECK_EQUAL(arr.Pop(), 21);
+  BOOST_CHECK_EQUAL(arr.Size(), 20);
+  BOOST_CHECK_EQUAL(arr.Capacity(), 40);
+
+  BOOST_CHECK_EQUAL(arr.Pop(), 20);
+  BOOST_CHECK_EQUAL(arr.Size(), 19);
+  BOOST_CHECK_EQUAL(arr.Capacity(), 40);
+
+  BOOST_CHECK_EQUAL(arr.Get(0), 1);
+  BOOST_CHECK_EQUAL(arr.Get(1), 2);
+  BOOST_CHECK_EQUAL(arr.Get(2), 3);
+
+  BOOST_CHECK_EQUAL(arr.Get(18), 19);
+
+}
+
+
+BOOST_AUTO_TEST_CASE( test_Array_WithObjects )
+{
+//  SimpleString str1 = "String 1";
+//  SimpleString str2 = "String 2";
+//  SimpleString str3 = "String 3";
+
+//  Array<SimpleString*> arr;
+//  arr.Push(&str1);
+
+}
 
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )
 {
