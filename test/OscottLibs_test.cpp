@@ -67,13 +67,25 @@ BOOST_AUTO_TEST_CASE( test_Array_Basic )
 
 BOOST_AUTO_TEST_CASE( test_Array_WithObjects )
 {
-//  SimpleString str1 = "String 1";
-//  SimpleString str2 = "String 2";
-//  SimpleString str3 = "String 3";
+  SimpleString str1 = "String 1";
+  SimpleString str2 = "String 2";
+  SimpleString str3 = "String 3";
 
-//  Array<SimpleString*> arr;
-//  arr.Push(&str1);
+  Array<SimpleString*> arr;
+  arr.Push(&str1);
+  arr.Push(&str2);
+  arr.Push(&str3);
+  arr.Push(&str1);
+  arr.Push(&str1);
 
+  BOOST_CHECK_EQUAL(arr.Size(), 5);
+  BOOST_CHECK_EQUAL(arr.Capacity(), 10);
+
+  BOOST_CHECK_EQUAL(arr.Get(0)->C_str(), "String 1");
+  BOOST_CHECK_EQUAL(arr.Get(1)->C_str(), "String 2");
+  BOOST_CHECK_EQUAL(arr.Get(2)->C_str(), "String 3");
+  BOOST_CHECK_EQUAL(arr.Get(3)->C_str(), "String 1");
+  BOOST_CHECK_EQUAL(arr.Get(4)->C_str(), "String 1");
 }
 
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )

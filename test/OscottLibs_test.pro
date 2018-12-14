@@ -14,8 +14,7 @@ SOURCES += \
     OscottLibs_test.cpp \
     ../LinkedList.cpp \
     ../LinkedListNode.cpp \
-    ../SimpleString.cpp \
-    ../Array.cpp
+    ../SimpleString.cpp
 
 HEADERS += \
     ../LinkedList.h \
