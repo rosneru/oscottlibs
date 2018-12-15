@@ -68,7 +68,7 @@ class Array {
       *(m_pData + index) = value;
     }
 
-    const T operator[](size_t index)
+    const T operator[](size_t index) const
     {
       return *(m_pData + index);
     }
