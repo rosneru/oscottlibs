@@ -468,8 +468,6 @@ BOOST_AUTO_TEST_CASE( testLinkedListInsertBehind )
   char caLine1[] = {"ABC"};
   char caLine2[] = {"DEF"};
   char caLine3[] = {"GHI"};
-  char caIns1[] = {"ins1"};
-  char caIns2[] = {"ins2"};
 
   // Create list
   LinkedList linkedList;

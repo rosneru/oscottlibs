@@ -59,7 +59,7 @@ bool LinkedList::RemoveItem()
   {
     // item is last remaining item in list
     m_pFirst = m_pLast = m_pActual = NULL;
-    m_Size = m_Index = NULL;
+    m_Size = m_Index = 0;
   }
 
   delete pItemToRemove;
@@ -321,19 +321,4 @@ void* LinkedList::GetIndexed(size_t p_Id)
   {
     return m_pActual->m_pData;
   }
-
-
-//  size_t currIdx = 0;
-//  void* pItem = GetFirst();
-//  while (currIdx != p_Id)
-//  {
-//    currIdx++;
-//    pItem = GetNext();
-//    if(pItem == NULL)
-//    {
-//      return pItem;
-//    }
-//  }
-
-//  return pItem;
 }
