@@ -728,3 +728,13 @@ BOOST_AUTO_TEST_CASE( testLinkedListLimitBehavior )
   BOOST_CHECK(linkedList.GetSelected() == caLine2);
 
 }
+
+BOOST_AUTO_TEST_CASE( testStringIndexer )
+{
+  SimpleString abc = "abc";
+
+  BOOST_CHECK_EQUAL(abc[0], 'a');
+  BOOST_CHECK_EQUAL(abc[1], 'b');
+  BOOST_CHECK_EQUAL(abc[2], 'c');
+  BOOST_CHECK_EQUAL(abc[3], 0);
+}

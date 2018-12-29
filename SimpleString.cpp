@@ -423,6 +423,8 @@ char& SimpleString::operator[](size_t p_Index)
   }
   else
   {
-    throw "Array subscript out of range";
+    static char c;
+    c = 0;
+    return c;
   }
 }
