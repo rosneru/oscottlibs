@@ -106,6 +106,46 @@ BOOST_AUTO_TEST_CASE( test_Array_pointerOperations )
   BOOST_CHECK_EQUAL(pData[4], 5);
 }
 
+BOOST_AUTO_TEST_CASE( test_Array_DynamicData_Clearing )
+{
+  char* p1 = new char[6];
+  char* p2 = new char[4];
+  char* p3 = new char[5];
+  char* p4 = new char[7];
+  char* p5 = new char[5];
+
+  strcpy(p1, "Hello");
+  strcpy(p2, "I'm");
+  strcpy(p3, "just");
+  strcpy(p4, "trying");
+  strcpy(p5, "out.");
+
+  Array<char*> textArray;
+  textArray.Push(p1);
+  textArray.Push(p2);
+  textArray.Push(p3);
+  textArray.Push(p4);
+  textArray.Push(p5);
+
+  BOOST_CHECK_EQUAL(textArray.Size(), 5);
+
+  char* pItem = textArray.Pop();
+  while(pItem != NULL)
+  {
+    delete[] pItem;
+
+    if(textArray.Size() == 0)
+    {
+      break;
+    }
+
+    pItem = textArray.Pop();
+  }
+
+
+  //BOOST_CHECK_EQUAL(textArray.Size(), 5);
+}
+
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )
 {
   SimpleString simpleStringTestConstr1(12345);
