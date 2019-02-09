@@ -7,3 +7,4 @@ compilers with no STL support.
 ## Content ##
 * **SimpleString** : basic string class
 * **LinkedList** : linear list implementation
+* **Array** : growing Arry implemented as a template class.
