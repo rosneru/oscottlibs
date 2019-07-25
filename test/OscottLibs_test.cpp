@@ -148,26 +148,47 @@ BOOST_AUTO_TEST_CASE( test_Array_DynamicData_Clearing )
 
 BOOST_AUTO_TEST_CASE( test_Array_Cloning )
 {
-  int src[] = {3, 4, 5, 6};
+  int src1[] = {3, 4, 5, 6};
+  int src2[] = {83, 293, 1377};
 
   Array<int> dest;
-  for(int i = 0; i < sizeof(src) / sizeof(int); i++)
+  for(size_t i = 0; i < sizeof(src1) / sizeof(int); i++)
   {
-    dest.Push(src[i]);
+    dest.Push(src1[i]);
   }
 
-  for(int i = 0; i < dest.Size(); i++)
+  for(size_t i = 0; i < dest.Size(); i++)
   {
-    BOOST_CHECK_EQUAL(dest[i], src[i]);
+    BOOST_CHECK_EQUAL(dest[i], src1[i]);
   }
 
-//  Array<int> arr;
-//  arr.Push(1);
-//  arr.Push(2);
-//  arr.Push(3);
-//  arr.Push(4);
-//  arr.Push(5);
-//  arr.Push(6);
+  LinkedList dest2;
+
+  Array<int> tmp1;
+  for(size_t i = 0; i < sizeof(src1) / sizeof(int); i++)
+  {
+    tmp1.Push(src1[i]);
+  }
+  dest2.InsertTail(&tmp1);
+
+  Array<int> tmp2;
+  for(size_t i = 0; i < sizeof(src2) / sizeof(int); i++)
+  {
+    tmp2.Push(src2[i]);
+  }
+  dest2.InsertTail(&tmp2);
+
+
+  Array<int>* pItem = (Array<int>*)dest2.GetFirst();
+  BOOST_CHECK_EQUAL((*pItem)[0], 3);
+  BOOST_CHECK_EQUAL((*pItem)[1], 4);
+  BOOST_CHECK_EQUAL((*pItem)[2], 5);
+  BOOST_CHECK_EQUAL((*pItem)[3], 6);
+
+  pItem = (Array<int>*)dest2.GetNext();
+  BOOST_CHECK_EQUAL((*pItem)[0], 83);
+  BOOST_CHECK_EQUAL((*pItem)[1], 293);
+  BOOST_CHECK_EQUAL((*pItem)[2], 1377);
 }
 
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )
