@@ -146,6 +146,30 @@ BOOST_AUTO_TEST_CASE( test_Array_DynamicData_Clearing )
   //BOOST_CHECK_EQUAL(textArray.Size(), 5);
 }
 
+BOOST_AUTO_TEST_CASE( test_Array_Cloning )
+{
+  int src[] = {3, 4, 5, 6};
+
+  Array<int> dest;
+  for(int i = 0; i < sizeof(src) / sizeof(int); i++)
+  {
+    dest.Push(src[i]);
+  }
+
+  for(int i = 0; i < dest.Size(); i++)
+  {
+    BOOST_CHECK_EQUAL(dest[i], src[i]);
+  }
+
+//  Array<int> arr;
+//  arr.Push(1);
+//  arr.Push(2);
+//  arr.Push(3);
+//  arr.Push(4);
+//  arr.Push(5);
+//  arr.Push(6);
+}
+
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )
 {
   SimpleString simpleStringTestConstr1(12345);
