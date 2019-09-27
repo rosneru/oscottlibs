@@ -146,6 +146,38 @@ BOOST_AUTO_TEST_CASE( test_Array_DynamicData_Clearing )
   //BOOST_CHECK_EQUAL(textArray.Size(), 5);
 }
 
+static int counter = 0;
+
+void constructArray(Array<int>& array)
+{
+  array.Push(counter++);
+  if(counter > 9)
+  {
+    counter = 0;
+    return;
+  }
+
+  constructArray(array);
+}
+
+BOOST_AUTO_TEST_CASE( test_Array_Recursive_Construction )
+{
+  Array<int> array;
+  constructArray(array);
+
+  BOOST_CHECK_EQUAL(array.Size(), 10);
+  BOOST_CHECK_EQUAL(array[0], 0);
+  BOOST_CHECK_EQUAL(array[1], 1);
+  BOOST_CHECK_EQUAL(array[2], 2);
+  BOOST_CHECK_EQUAL(array[3], 3);
+  BOOST_CHECK_EQUAL(array[4], 4);
+  BOOST_CHECK_EQUAL(array[5], 5);
+  BOOST_CHECK_EQUAL(array[6], 6);
+  BOOST_CHECK_EQUAL(array[7], 7);
+  BOOST_CHECK_EQUAL(array[8], 8);
+  BOOST_CHECK_EQUAL(array[9], 9);
+}
+
 BOOST_AUTO_TEST_CASE( test_Array_Cloning )
 {
   int src1[] = {3, 4, 5, 6};
@@ -190,6 +222,8 @@ BOOST_AUTO_TEST_CASE( test_Array_Cloning )
   BOOST_CHECK_EQUAL((*pItem)[1], 293);
   BOOST_CHECK_EQUAL((*pItem)[2], 1377);
 }
+
+
 
 BOOST_AUTO_TEST_CASE( testStringAndNumbers )
 {
