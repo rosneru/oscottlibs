@@ -12,7 +12,7 @@ LinkedList::LinkedList()
 
 }
 
-LinkedList::~ LinkedList(void)
+LinkedList::~LinkedList(void)
 {
   while (RemoveItem() == true);
 }

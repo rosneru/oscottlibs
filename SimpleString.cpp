@@ -268,6 +268,24 @@ SimpleString SimpleString::Trim(bool bRemoveAlsoLeadingWhiteSp)
   return trimmed;
 }
 
+
+SimpleString SimpleString::ToLower()
+{
+  SimpleString lowercase = *this;
+  for(size_t i = 0; i < lowercase.Length(); i++)
+  {
+    char& letter = lowercase[i];
+    if(letter > 64 && letter < 91)
+    {
+      // Add 32 to a upper case letter to make it lower case
+      letter += 32;
+    }
+  }
+
+  return lowercase;
+}
+
+
 bool SimpleString::containsOnlyWhiteSpaces()
 {
   for(size_t i=0; i < m_Len; i++)

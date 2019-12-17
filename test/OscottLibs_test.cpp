@@ -509,6 +509,19 @@ BOOST_AUTO_TEST_CASE( testString )
 }
 
 
+BOOST_AUTO_TEST_CASE( test_string_toLower )
+{
+  SimpleString source = "Workbench";
+  SimpleString lowercase = source.ToLower();
+  BOOST_CHECK(lowercase == "workbench");
+
+  source = "tArAnTulLa123";
+  if(source.ToLower() == "tarantulla123")
+  {
+    printf("Yeah.\n");
+  }
+}
+
 BOOST_AUTO_TEST_CASE( testLinkedListTypical )
 {
   SimpleString line1 = "Line 1";

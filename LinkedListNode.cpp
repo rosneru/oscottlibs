@@ -11,7 +11,7 @@ LinkedListNode::LinkedListNode(void* pItemData,
 
 }
 
-LinkedListNode::~ LinkedListNode()
+LinkedListNode::~LinkedListNode()
 {
 
 }

@@ -144,6 +144,16 @@ public:
    */
   SimpleString Trim(bool bRemoveAlsoLeadingWhiteSp = false);
 
+  /**
+   * @brief
+   * Returns a newly constructed string object where all upper case
+   * letters are converted into lower case.
+   *
+   * NOTE: Only plain ASCII is processed.
+   *       Localization / 'umlauts' are skipped.
+   */
+  SimpleString ToLower();
+
 private:
   size_t m_Len;
   char *m_pBuf;
