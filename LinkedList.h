@@ -26,7 +26,8 @@ public:
   bool InsertTail(void* pItemIns);
   bool InsertBefore(void* pItemIns);
   bool InsertBehind(void* pItemIns);
-  bool AddItemToList(void* pItemIns, int(*pCompareFunc) (void* pItemList, void* pItemAdd));
+  bool AddItemToList(void* pItemIns,
+                     int(*pCompareFunc) (void* pItemList, void* pItemAdd));
 
   bool RemoveItem(void);
 
@@ -38,10 +39,16 @@ public:
 
   void* GetIndexed(size_t id);
 
-  void* searchList(void* pItemSearch, int(*pCompareFunc) (void* pItemList, void* pItemFind));
+  void* searchList(void* pItemSearch,
+                   int(*pCompareFunc) (void* pItemList, void* pItemFind));
 
   size_t Size() const;
   size_t Index() const;
+
+protected:
+  LinkedListNode* allocListNode(void* pItem,
+                                LinkedListNode* pPrev,
+                                LinkedListNode* pNext);
 
 private:
   size_t m_Size;
