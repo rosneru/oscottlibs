@@ -49,6 +49,8 @@ protected:
   virtual LinkedListNode* allocListNode(void* pItem,
                                         LinkedListNode* pPrev,
                                         LinkedListNode* pNext);
+                                        
+  virtual void freeListNode(LinkedListNode* pNode);
 
   virtual void freeListNode(LinkedListNode* pNode);
 
