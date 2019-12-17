@@ -46,9 +46,9 @@ public:
   size_t Index() const;
 
 protected:
-  LinkedListNode* allocListNode(void* pItem,
-                                LinkedListNode* pPrev,
-                                LinkedListNode* pNext);
+  virtual LinkedListNode* allocListNode(void* pItem,
+                                        LinkedListNode* pPrev,
+                                        LinkedListNode* pNext);
 
 private:
   size_t m_Size;
