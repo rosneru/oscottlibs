@@ -12,8 +12,6 @@
 #include <stdlib.h>
 #include "LinkedListNode.h"
 
-using namespace std;
-
 class LinkedList
 {
   LinkedListNode* m_pFirst;
@@ -28,7 +26,7 @@ public:
   bool InsertTail(void* pItemIns);
   bool InsertBefore(void* pItemIns);
   bool InsertBehind(void* pItemIns);
-  bool AddItemToList(void* pItemIns, int(*fcmp) (void* itList, void* itNew));
+  bool AddItemToList(void* pItemIns, int(*pCompareFunc) (void* pItemList, void* pItemAdd));
 
   bool RemoveItem(void);
 
@@ -40,7 +38,7 @@ public:
 
   void* GetIndexed(size_t id);
 
-  void* searchList(void* pItemSearch, int(fcmp) (void* pItList, void* pItNew));
+  void* searchList(void* pItemSearch, int(*pCompareFunc) (void* pItemList, void* pItemFind));
 
   size_t Size() const;
   size_t Index() const;

@@ -171,13 +171,14 @@ bool LinkedList::InsertBehind(void* pItemIns)
 }
 
 
-bool LinkedList::AddItemToList(void* pItemIns, int(*fcmp) (void* itList, void* itNew))
+bool LinkedList::AddItemToList(void* pItemIns,
+                               int(*pCompareFunc) (void* pItemList, void* pItemAdd))
 {
   if (GetFirst())        // Liste enthaelt schon Element(e)
   {
     do
     {
-      if (fcmp(pItemIns, m_pActual->m_pData) > 0)
+      if (pCompareFunc(pItemIns, m_pActual->m_pData) > 0)
       {
         if (GetNext() == NULL)
         {
@@ -198,13 +199,14 @@ bool LinkedList::AddItemToList(void* pItemIns, int(*fcmp) (void* itList, void* i
 }
 
 
-void* LinkedList::searchList(void* pItemSearch, int(fcmp) (void* pItList, void* pItNew))
+void* LinkedList::searchList(void* pItemSearch,
+                             int(*pCompareFunc) (void* pItemList, void* pItemFind))
 {
   if (GetFirst() != NULL)
   {
     do
     {
-      if (fcmp(pItemSearch, m_pActual->m_pData) == 0)
+      if (pCompareFunc(pItemSearch, m_pActual->m_pData) == 0)
       {
         return m_pActual->m_pData;
       }
