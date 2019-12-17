@@ -1,9 +1,11 @@
 #include "LinkedListNode.h"
 
 
-LinkedListNode::LinkedListNode(void* pItemData, LinkedListNode* prevListItem, LinkedListNode* nextListItem)
-  : m_pPrv(prevListItem),
-    m_pNxt (nextListItem),
+LinkedListNode::LinkedListNode(void* pItemData,
+                               LinkedListNode* pPrevListItem,
+                               LinkedListNode* pNextListItem)
+  : m_pPrv(pPrevListItem),
+    m_pNxt (pNextListItem),
     m_pData(pItemData)
 {
 
@@ -11,5 +13,5 @@ LinkedListNode::LinkedListNode(void* pItemData, LinkedListNode* prevListItem, Li
 
 LinkedListNode::~ LinkedListNode()
 {
-//  delete m_pItem;
+
 }
