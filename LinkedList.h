@@ -50,6 +50,8 @@ protected:
                                         LinkedListNode* pPrev,
                                         LinkedListNode* pNext);
 
+  virtual void freeListNode(LinkedListNode* pNode);
+
 private:
   size_t m_Size;
   size_t m_Index;

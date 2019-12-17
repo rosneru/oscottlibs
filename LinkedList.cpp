@@ -62,7 +62,7 @@ bool LinkedList::RemoveItem()
     m_Size = m_Index = 0;
   }
 
-  delete pItemToRemove;
+  freeListNode(pItemToRemove);
   return true;
 }
 
@@ -334,4 +334,9 @@ LinkedListNode* LinkedList::allocListNode(void* pItem,
 {
   LinkedListNode* pNode = new LinkedListNode(pItem, pPrev, pNext);
   return pNode;
+}
+
+void LinkedList::freeListNode(LinkedListNode* pNode)
+{
+  delete pNode;
 }
