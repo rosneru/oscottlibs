@@ -52,8 +52,6 @@ protected:
                                         
   virtual void freeListNode(LinkedListNode* pNode);
 
-  virtual void freeListNode(LinkedListNode* pNode);
-
 private:
   size_t m_Size;
   size_t m_Index;
