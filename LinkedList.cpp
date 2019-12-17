@@ -67,13 +67,13 @@ bool LinkedList::RemoveItem()
 }
 
 
-bool LinkedList::InsertHead(void* p_pItemIns)
+bool LinkedList::InsertHead(void* pItemIns)
 {
   LinkedListNode* pInserted = NULL;
 
   if (m_pFirst == NULL)
   {
-    if ((m_pFirst = new LinkedListNode(p_pItemIns, NULL, NULL)) == NULL)
+    if ((m_pFirst = new LinkedListNode(pItemIns, NULL, NULL)) == NULL)
     {
       return false;
     }
@@ -84,7 +84,7 @@ bool LinkedList::InsertHead(void* p_pItemIns)
   }
   else
   {
-    if ((pInserted = new LinkedListNode(p_pItemIns, NULL, m_pFirst)) == NULL)
+    if ((pInserted = new LinkedListNode(pItemIns, NULL, m_pFirst)) == NULL)
     {
       return false;
     }
@@ -99,17 +99,17 @@ bool LinkedList::InsertHead(void* p_pItemIns)
 }
 
 
-bool LinkedList::InsertTail(void* p_pItemIns)
+bool LinkedList::InsertTail(void* pItemIns)
 {
   LinkedListNode* pInserted = NULL;
 
   if (m_pLast == NULL)
   {
-    return InsertHead(p_pItemIns);
+    return InsertHead(pItemIns);
   }
   else
   {
-    if ((pInserted = new LinkedListNode(p_pItemIns, m_pLast, NULL)) == NULL)
+    if ((pInserted = new LinkedListNode(pItemIns, m_pLast, NULL)) == NULL)
     {
       return false;
     }
@@ -124,16 +124,16 @@ bool LinkedList::InsertTail(void* p_pItemIns)
 }
 
 
-bool LinkedList::InsertBefore(void* p_pItemIns)
+bool LinkedList::InsertBefore(void* pItemIns)
 {
   LinkedListNode* pInserted = NULL;
 
   if ((m_pActual == NULL) || (m_pActual == m_pFirst))
   {
-    return InsertHead(p_pItemIns);
+    return InsertHead(pItemIns);
   }
 
-  if ((pInserted = new LinkedListNode(p_pItemIns, m_pActual->m_pPrv, m_pActual)) == NULL)
+  if ((pInserted = new LinkedListNode(pItemIns, m_pActual->m_pPrv, m_pActual)) == NULL)
   {
     return false;
   }
@@ -147,16 +147,16 @@ bool LinkedList::InsertBefore(void* p_pItemIns)
 }
 
 
-bool LinkedList::InsertBehind(void* p_pItemIns)
+bool LinkedList::InsertBehind(void* pItemIns)
 {
   LinkedListNode* pInserted = NULL;
 
   if ((m_pActual == NULL) || (m_pActual == m_pLast))
   {
-    return InsertTail(p_pItemIns);
+    return InsertTail(pItemIns);
   }
 
-  if ((pInserted = new LinkedListNode(p_pItemIns, m_pActual, m_pActual->m_pNxt)) == NULL)
+  if ((pInserted = new LinkedListNode(pItemIns, m_pActual, m_pActual->m_pNxt)) == NULL)
   {
     return false;
   }
@@ -171,40 +171,40 @@ bool LinkedList::InsertBehind(void* p_pItemIns)
 }
 
 
-bool LinkedList::AddItemToList(void* p_pItemIns, int(*fcmp) (void* p_ItList, void* p_ItNew))
+bool LinkedList::AddItemToList(void* pItemIns, int(*fcmp) (void* itList, void* itNew))
 {
   if (GetFirst())        // Liste enthaelt schon Element(e)
   {
     do
     {
-      if (fcmp(p_pItemIns, m_pActual->m_pData) > 0)
+      if (fcmp(pItemIns, m_pActual->m_pData) > 0)
       {
         if (GetNext() == NULL)
         {
-          return InsertTail(p_pItemIns);
+          return InsertTail(pItemIns);
         }
       }
       else
       {
-        return InsertBefore(p_pItemIns);
+        return InsertBefore(pItemIns);
       }
     }
     while (1);
   }
   else             // Liste enthaelt noch kein Element
   {
-    return InsertHead(p_pItemIns);
+    return InsertHead(pItemIns);
   }
 }
 
 
-void* LinkedList::searchList(void* p_pItemSearch, int(fcmp) (void* pItList, void* pItNew))
+void* LinkedList::searchList(void* pItemSearch, int(fcmp) (void* pItList, void* pItNew))
 {
   if (GetFirst() != NULL)
   {
     do
     {
-      if (fcmp(p_pItemSearch, m_pActual->m_pData) == 0)
+      if (fcmp(pItemSearch, m_pActual->m_pData) == 0)
       {
         return m_pActual->m_pData;
       }
@@ -286,22 +286,22 @@ void* LinkedList::GetSelected(void)
   return m_pActual->m_pData;
 }
 
-void* LinkedList::GetIndexed(size_t p_Id)
+void* LinkedList::GetIndexed(size_t id)
 {
   if(m_Size == 0)
   {
     return NULL;
   }
 
-  if(p_Id > (m_Size - 1))
+  if(id > (m_Size - 1))
   {
     return NULL;
   }
 
-  int delta = p_Id - m_Index;
+  int delta = id - m_Index;
   if(delta < 0)
   {
-    while(m_Index > p_Id)
+    while(m_Index > id)
     {
       GetPrev();
     }
@@ -310,7 +310,7 @@ void* LinkedList::GetIndexed(size_t p_Id)
   }
   else if(delta > 0)
   {
-    while(m_Index < p_Id)
+    while(m_Index < id)
     {
       GetNext();
     }

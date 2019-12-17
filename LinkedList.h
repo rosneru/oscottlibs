@@ -24,11 +24,11 @@ public:
   LinkedList(void);
   ~LinkedList(void);
 
-  bool InsertHead(void* p_pItemIns);
-  bool InsertTail(void* p_pItemIns);
-  bool InsertBefore(void* p_pItemIns);
-  bool InsertBehind(void* p_pItemIns);
-  bool AddItemToList(void* p_pItemIns, int(*fcmp) (void* p_ItList, void* p_ItNew));
+  bool InsertHead(void* pItemIns);
+  bool InsertTail(void* pItemIns);
+  bool InsertBefore(void* pItemIns);
+  bool InsertBehind(void* pItemIns);
+  bool AddItemToList(void* pItemIns, int(*fcmp) (void* itList, void* itNew));
 
   bool RemoveItem(void);
 
@@ -38,9 +38,9 @@ public:
   void* GetPrev(void);
   void* GetSelected(void);
 
-  void* GetIndexed(size_t p_Id);
+  void* GetIndexed(size_t id);
 
-  void* searchList(void* p_pItemSearch, int(fcmp) (void* pItList, void* pItNew));
+  void* searchList(void* pItemSearch, int(fcmp) (void* pItList, void* pItNew));
 
   size_t Size() const;
   size_t Index() const;

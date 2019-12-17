@@ -10,11 +10,11 @@ SimpleString::SimpleString()
   m_pBuf[0] = '\0';
 }
 
-SimpleString::SimpleString(const char *p_pTxt)
-  : m_Len(strlen(p_pTxt)),
+SimpleString::SimpleString(const char *pTxt)
+  : m_Len(strlen(pTxt)),
     m_pBuf(new char[m_Len + 1])
 {
-  strcpy(m_pBuf, p_pTxt);
+  strcpy(m_pBuf, pTxt);
 }
 
 SimpleString::SimpleString(const SimpleString& other)
@@ -24,31 +24,31 @@ SimpleString::SimpleString(const SimpleString& other)
   strcpy(m_pBuf, other.m_pBuf);
 }
 
-SimpleString::SimpleString(const char p_Character, const int p_Count)
-  : m_Len(p_Count),
+SimpleString::SimpleString(const char character, size_t count)
+  : m_Len(count),
     m_pBuf(new char[m_Len + 1])
 {
-  for(int i=0; i<p_Count; i++)
+  for(size_t i = 0; i < count; i++)
   {
-    m_pBuf[i] = p_Character;
+    m_pBuf[i] = character;
   }
 
-  m_pBuf[p_Count]='\0';
+  m_pBuf[count]='\0';
 }
 
-SimpleString::SimpleString(const long p_Number)
+SimpleString::SimpleString(const long number)
   : m_Len(0),
     m_pBuf(NULL)
 {
   // Get number of digits
   int digits = 1;
-  long div = p_Number;
+  long div = number;
   while(div /= 10)
   {
     digits++;
   }
 
-  if(p_Number < 0)
+  if(number < 0)
   {
     // Space for '-' char
     digits++;
@@ -57,7 +57,7 @@ SimpleString::SimpleString(const long p_Number)
   m_Len = digits;
   m_pBuf = new char[m_Len + 1];
 
-  sprintf(m_pBuf, "%ld", p_Number);
+  sprintf(m_pBuf, "%ld", number);
   m_pBuf[m_Len] = '\0';
 }
 
@@ -76,113 +76,113 @@ size_t SimpleString::Length() const
   return m_Len;
 }
 
-SimpleString SimpleString::SubStr(size_t p_Index, size_t p_Len) const
+SimpleString SimpleString::SubStr(size_t index, size_t len) const
 {
-  if(p_Len > m_Len)
+  if(len > m_Len)
   {
-    p_Len = m_Len;
+    len = m_Len;
   }
 
-  if(p_Index > (m_Len - 1))
+  if(index > (m_Len - 1))
   {
-    p_Index = m_Len - 1;
-    p_Len = 0;
+    index = m_Len - 1;
+    len = 0;
   }
 
-  if((p_Index + p_Len) >= m_Len)
+  if((index + len) >= m_Len)
   {
-    size_t shortenBy = p_Index + p_Len - m_Len;
-    p_Len -= shortenBy;
+    size_t shortenBy = index + len - m_Len;
+    len -= shortenBy;
   }
 
-  char* pNewBuf = new char[p_Len + 1];
+  char* pNewBuf = new char[len + 1];
 
-  strncpy(pNewBuf, m_pBuf + p_Index, p_Len);
-  pNewBuf[p_Len] = '\0';
+  strncpy(pNewBuf, m_pBuf + index, len);
+  pNewBuf[len] = '\0';
 
   SimpleString newStr(pNewBuf);
   delete[] pNewBuf;
   return newStr;
 }
 
-SimpleString& SimpleString::Replace(size_t p_Index, SimpleString& p_ReplaceBy)
+SimpleString& SimpleString::Replace(size_t index, SimpleString& replaceBy)
 {
-  size_t copyLen = p_ReplaceBy.Length();
-  if((p_Index + copyLen) > m_Len)
+  size_t copyLen = replaceBy.Length();
+  if((index + copyLen) > m_Len)
   {
-    size_t shortenBy = p_Index + copyLen - m_Len;
+    size_t shortenBy = index + copyLen - m_Len;
     copyLen -= shortenBy;
   }
 
-  strncpy(m_pBuf + p_Index, p_ReplaceBy.m_pBuf, copyLen);
+  strncpy(m_pBuf + index, replaceBy.m_pBuf, copyLen);
   m_pBuf[m_Len] = '\0';
 
   return *this;
 }
 
-SimpleString&SimpleString::Replace(size_t p_Index, const char* p_pReplaceBy)
+SimpleString&SimpleString::Replace(size_t index, const char* pReplaceBy)
 {
-  size_t copyLen = strlen(p_pReplaceBy);
-  if((p_Index + copyLen) > m_Len)
+  size_t copyLen = strlen(pReplaceBy);
+  if((index + copyLen) > m_Len)
   {
-    size_t shortenBy = p_Index + copyLen - m_Len;
+    size_t shortenBy = index + copyLen - m_Len;
     copyLen -= shortenBy;
   }
 
-  strncpy(m_pBuf + p_Index, p_pReplaceBy, copyLen);
+  strncpy(m_pBuf + index, pReplaceBy, copyLen);
   m_pBuf[m_Len] = '\0';
 
   return *this;
 }
 
-SimpleString& SimpleString::Insert(size_t p_Index, SimpleString& p_Insert)
+SimpleString& SimpleString::Insert(size_t index, SimpleString& insert)
 {
-  if(p_Index > m_Len)
+  if(index > m_Len)
   {
-    p_Index = m_Len;
+    index = m_Len;
   }
 
-  m_Len = m_Len + p_Insert.m_Len;
+  m_Len = m_Len + insert.m_Len;
   char* pNewBuf = new char[m_Len + 1];
 
-  strncpy(pNewBuf, m_pBuf, p_Index);
-  strncpy(pNewBuf + p_Index, p_Insert.m_pBuf, p_Insert.m_Len);
-  strcpy(pNewBuf + p_Index + p_Insert.m_Len, m_pBuf + p_Index);
+  strncpy(pNewBuf, m_pBuf, index);
+  strncpy(pNewBuf + index, insert.m_pBuf, insert.m_Len);
+  strcpy(pNewBuf + index + insert.m_Len, m_pBuf + index);
 
   delete[] m_pBuf;
   m_pBuf = pNewBuf;
   return *this;
 }
 
-SimpleString& SimpleString::Insert(size_t p_Index, const char* p_pInsert)
+SimpleString& SimpleString::Insert(size_t index, const char* pInsert)
 {
-  if(p_Index > m_Len)
+  if(index > m_Len)
   {
-    p_Index = m_Len;
+    index = m_Len;
   }
 
-  m_Len = m_Len + strlen(p_pInsert);
+  m_Len = m_Len + strlen(pInsert);
   char* pNewBuf = new char[m_Len + 1];
 
-  strncpy(pNewBuf, m_pBuf, p_Index);
-  strncpy(pNewBuf + p_Index, p_pInsert, strlen(p_pInsert));
-  strcpy(pNewBuf + p_Index + strlen(p_pInsert), m_pBuf + p_Index);
+  strncpy(pNewBuf, m_pBuf, index);
+  strncpy(pNewBuf + index, pInsert, strlen(pInsert));
+  strcpy(pNewBuf + index + strlen(pInsert), m_pBuf + index);
 
   delete[] m_pBuf;
   m_pBuf = pNewBuf;
   return *this;
 }
 
-SimpleString& SimpleString::Erase(size_t p_Index, size_t p_Len)
+SimpleString& SimpleString::Erase(size_t index, size_t len)
 {
-  if(p_Index >= m_Len)
+  if(index >= m_Len)
   {
     return *this;
   }
 
-  size_t copyLen1 = p_Index;
-  size_t copyLen2 = m_Len - p_Index - p_Len;
-  if(p_Index + p_Len > m_Len)
+  size_t copyLen1 = index;
+  size_t copyLen2 = m_Len - index - len;
+  if(index + len > m_Len)
   {
     copyLen2 = 0;
   }
@@ -197,7 +197,7 @@ SimpleString& SimpleString::Erase(size_t p_Index, size_t p_Len)
 
   if(copyLen2 > 0)
   {
-    strncpy(pNewBuf + copyLen1, m_pBuf + copyLen1 + p_Len, copyLen2);
+    strncpy(pNewBuf + copyLen1, m_pBuf + copyLen1 + len, copyLen2);
   }
 
   pNewBuf[m_Len] = '\0';
@@ -209,7 +209,7 @@ SimpleString& SimpleString::Erase(size_t p_Index, size_t p_Len)
 
 
 
-SimpleString SimpleString::Trim(bool p_bRemoveAlsoLeadingWhiteSp)
+SimpleString SimpleString::Trim(bool bRemoveAlsoLeadingWhiteSp)
 {
   if(containsOnlyWhiteSpaces() == true)
   {
@@ -219,7 +219,7 @@ SimpleString SimpleString::Trim(bool p_bRemoveAlsoLeadingWhiteSp)
   }
 
   SimpleString trimmed = *this;
-  if(p_bRemoveAlsoLeadingWhiteSp == true)
+  if(bRemoveAlsoLeadingWhiteSp == true)
   {
     for (size_t i = 0; i < Length(); i++)
     {
@@ -287,86 +287,86 @@ bool SimpleString::containsOnlyWhiteSpaces()
 
 
 
-SimpleString& SimpleString::operator=(const SimpleString& p_Other)
+SimpleString& SimpleString::operator=(const SimpleString& other)
 {
-  m_Len = p_Other.m_Len;
-  if(&p_Other == this)
+  m_Len = other.m_Len;
+  if(&other == this)
   {
     return *this;
   }
 
   delete[] m_pBuf;
   m_pBuf = new char[m_Len + 1];
-  strcpy(m_pBuf, p_Other.m_pBuf);
+  strcpy(m_pBuf, other.m_pBuf);
   return *this;
 }
 
-SimpleString& SimpleString::operator=(const char* p_pOtherChar)
+SimpleString& SimpleString::operator=(const char* pOtherChar)
 {
   delete[] m_pBuf;
 
-  m_Len = strlen(p_pOtherChar);
+  m_Len = strlen(pOtherChar);
   m_pBuf = new char[m_Len + 1];
-  strcpy(m_pBuf, p_pOtherChar);
+  strcpy(m_pBuf, pOtherChar);
   return *this;
 }
 
 
-SimpleString SimpleString::operator+(const SimpleString& p_Other)
+SimpleString SimpleString::operator+(const SimpleString& other)
 {
-  m_Len = m_Len + p_Other.m_Len;
+  m_Len = m_Len + other.m_Len;
   char* pNewBuf = new char[m_Len + 1];
 
   strcpy(pNewBuf, m_pBuf);
-  strcat(pNewBuf, p_Other.m_pBuf);
+  strcat(pNewBuf, other.m_pBuf);
 
   SimpleString newStr(pNewBuf);
   delete[] pNewBuf;
   return newStr;
 }
 
-SimpleString SimpleString::operator+(const char* p_pOtherChar)
+SimpleString SimpleString::operator+(const char* pOtherChar)
 {
-  m_Len = m_Len + strlen(p_pOtherChar);
+  m_Len = m_Len + strlen(pOtherChar);
   char* pNewBuf = new char[m_Len + 1];
 
   strcpy(pNewBuf, m_pBuf);
-  strcat(pNewBuf, p_pOtherChar);
+  strcat(pNewBuf, pOtherChar);
 
   SimpleString newStr(pNewBuf);
   delete[] pNewBuf;
   return newStr;
 }
 
-SimpleString& SimpleString::operator+=(const SimpleString& p_Other)
+SimpleString& SimpleString::operator+=(const SimpleString& other)
 {
-  m_Len = m_Len + p_Other.m_Len;
+  m_Len = m_Len + other.m_Len;
 
   char* pOldBuf = m_pBuf;
   m_pBuf = new char[m_Len + 1];
   strcpy(m_pBuf, pOldBuf);
-  strcat(m_pBuf, p_Other.m_pBuf);
+  strcat(m_pBuf, other.m_pBuf);
 
   delete[] pOldBuf;
   return *this;
 }
 
-SimpleString& SimpleString::operator+=(const char* p_pOtherChar)
+SimpleString& SimpleString::operator+=(const char* pOtherChar)
 {
-  m_Len = m_Len + strlen(p_pOtherChar);
+  m_Len = m_Len + strlen(pOtherChar);
 
   char* pOldBuf = m_pBuf;
   m_pBuf = new char[m_Len + 1];
   strcpy(m_pBuf, pOldBuf);
-  strcat(m_pBuf, p_pOtherChar);
+  strcat(m_pBuf, pOtherChar);
 
   delete[] pOldBuf;
   return *this;
 }
 
-SimpleString& SimpleString::operator+=(long p_Number)
+SimpleString& SimpleString::operator+=(long number)
 {
-  SimpleString numberStr(p_Number);
+  SimpleString numberStr(number);
 
   m_Len = m_Len + numberStr.Length();
 
@@ -379,9 +379,9 @@ SimpleString& SimpleString::operator+=(long p_Number)
   return *this;
 }
 
-bool SimpleString::operator==(const SimpleString& p_Other) const
+bool SimpleString::operator==(const SimpleString& other) const
 {
-  if(strcmp(m_pBuf, p_Other.m_pBuf) == 0)
+  if(strcmp(m_pBuf, other.m_pBuf) == 0)
   {
     return true;
   }
@@ -391,9 +391,9 @@ bool SimpleString::operator==(const SimpleString& p_Other) const
   }
 }
 
-bool SimpleString::operator<(const SimpleString& p_Other) const
+bool SimpleString::operator<(const SimpleString& other) const
 {
-  if(strcmp(m_pBuf, p_Other.m_pBuf) < 0)
+  if(strcmp(m_pBuf, other.m_pBuf) < 0)
   {
     return true;
   }
@@ -403,9 +403,9 @@ bool SimpleString::operator<(const SimpleString& p_Other) const
   }
 }
 
-bool SimpleString::operator>(const SimpleString& p_Other) const
+bool SimpleString::operator>(const SimpleString& other) const
 {
-  if(strcmp(m_pBuf, p_Other.m_pBuf) > 0)
+  if(strcmp(m_pBuf, other.m_pBuf) > 0)
   {
     return true;
   }
@@ -415,11 +415,11 @@ bool SimpleString::operator>(const SimpleString& p_Other) const
   }
 }
 
-char& SimpleString::operator[](size_t p_Index)
+char& SimpleString::operator[](size_t index)
 {
-  if(p_Index < m_Len)
+  if(index < m_Len)
   {
-    return m_pBuf[p_Index];
+    return m_pBuf[index];
   }
   else
   {

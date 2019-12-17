@@ -15,7 +15,7 @@ private:
   LinkedListNode* m_pPrv;     // Pointer auf vorheriges Verbindungselement
   LinkedListNode* m_pNxt;     // Pointer auf naechstes Verbindungselement
   void* m_pData;              // Pointer auf die Daten
-  LinkedListNode(void* p_pItemData, LinkedListNode* p_PrevListItem, LinkedListNode* p_NextListItem);  // Konstruktor
+  LinkedListNode(void* pItemData, LinkedListNode* prevListItem, LinkedListNode* nextListItem);  // Konstruktor
   ~LinkedListNode();
 };
 

@@ -14,25 +14,25 @@ class SimpleString
 {
 public:
   SimpleString();
-  SimpleString(const char* p_pTxt);
+  SimpleString(const char* pTxt);
   SimpleString(const SimpleString& other);
-  SimpleString(const char p_Character, const int p_Count);
-  SimpleString(const long p_Number);
+  SimpleString(const char character, size_t count);
+  SimpleString(const long number);
 
   ~SimpleString();
 
   // Operators
-  SimpleString& operator=(const SimpleString& p_Other);
-  SimpleString& operator=(const char* p_pOtherChar);
-  SimpleString operator+(const SimpleString& p_Other);
-  SimpleString operator+(const char* p_pOtherChar);
-  SimpleString& operator+=(const SimpleString& p_Other);
-  SimpleString& operator+=(const char* p_pOtherChar);
-  SimpleString& operator+=(long p_Number);
-  bool operator==(const SimpleString& p_Other) const;
-  bool operator<(const SimpleString& p_Other) const;
-  bool operator>(const SimpleString& p_Other) const;
-  char& operator[](size_t p_Index);
+  SimpleString& operator=(const SimpleString& other);
+  SimpleString& operator=(const char* pOtherChar);
+  SimpleString operator+(const SimpleString& other);
+  SimpleString operator+(const char* pOtherChar);
+  SimpleString& operator+=(const SimpleString& other);
+  SimpleString& operator+=(const char* pOtherChar);
+  SimpleString& operator+=(long number);
+  bool operator==(const SimpleString& other) const;
+  bool operator<(const SimpleString& other) const;
+  bool operator>(const SimpleString& other) const;
+  char& operator[](size_t index);
 
   /**
    * Get C string equivalent
@@ -50,16 +50,16 @@ public:
    * Returns a newly constructed string object with its value
    * initialized to a copy of a substring of this object.
    *
-   * @param p_Index
+   * @param index
    * Index of the first character to be copied as a substring. If this
-   * is equal or greate to the string length, the function returns an
-   * empty string.
+   * is equal to or bigger than the string length, the function returns
+   * an empty string.
    *
-   * @param p_Len
+   * @param len
    * Number of characters to include in the substring. If the string
    * is shorter, as many characters as possible are used.
    */
-  SimpleString SubStr(size_t p_Index, size_t p_Len) const;
+  SimpleString SubStr(size_t index, size_t len) const;
 
 
   /**
@@ -70,16 +70,16 @@ public:
    *
    * WARNING This creates *no* copy. It changes the string directly!
    *
-   * @param p_Index
+   * @param index
    * Index of the first character to be replaced. If this is greater
    * than the string length, nothing will be done.
    *
    *
-   * @param p_ReplaceBy
+   * @param replaceBy
    * String that will be inserted at replace position
    *
    */
-  SimpleString& Replace(size_t p_Index, SimpleString& p_ReplaceBy);
+  SimpleString& Replace(size_t index, SimpleString& replaceBy);
 
   /**
    * @brief
@@ -89,16 +89,16 @@ public:
    *
    * WARNING This creates *no* copy. It changes the string directly!
    *
-   * @param p_Index
+   * @param index
    * Index of the first character to be replaced. If this is greater
    * than the string length, nothing will be done.
    *
    *
-   * @param p_pReplaceBy
+   * @param pReplaceBy
    * Pointer to the C string that will be inserted at replace position
    *
    */
-  SimpleString& Replace(size_t p_Index, const char* p_pReplaceBy);
+  SimpleString& Replace(size_t index, const char* pReplaceBy);
 
   /**
    * @brief
@@ -107,7 +107,7 @@ public:
    * WARNING This creates *no* copy. It changes the string directly!
    *
    */
-  SimpleString& Insert(size_t p_Index, SimpleString& p_Insert);
+  SimpleString& Insert(size_t index, SimpleString& insert);
 
   /**
    * @brief
@@ -116,33 +116,33 @@ public:
    * WARNING This creates *no* copy. It changes the string directly!
    *
    */
-  SimpleString& Insert(size_t p_Index, const char* p_pInsert);
+  SimpleString& Insert(size_t index, const char* pInsert);
 
   /**
    * @brief
    * Erases part of the string, reducing its length.
    *
-   * Erases the portion of the string value that begins at p_Index and
-   * spans p_Len characters (or until the end of the string, if the
+   * Erases the portion of the string value that begins at index and
+   * spans len characters (or until the end of the string, if the
    * content is too short).
    *
    * WARNING This creates *no* copy. It changes the string directly!
    */
-  SimpleString& Erase(size_t p_Index, size_t p_Len);
+  SimpleString& Erase(size_t index, size_t len);
 
   /**
    * @brief
    * Returns a newly constructed string object with all occurrences of
    * '\r', '\n', '\t' and ' ' from the end of the string are removed.
    *
-   * Per Default the parameter p_bRemoveAlsoLeadingWhiteSp is set to
+   * Per Default the parameter bRemoveAlsoLeadingWhiteSp is set to
    * false so all leading and trailing white spaces are removed.
    *
-   * @param p_bRemoveAlsoLeadingWhiteSp
+   * @param bRemoveAlsoLeadingWhiteSp
    * When true only trailing white spaces are removed. When false the
    * trailing and also leading white spaces are removed.
    */
-  SimpleString Trim(bool p_bRemoveAlsoLeadingWhiteSp = false);
+  SimpleString Trim(bool bRemoveAlsoLeadingWhiteSp = false);
 
 private:
   size_t m_Len;
