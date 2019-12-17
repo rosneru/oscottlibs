@@ -209,7 +209,7 @@ SimpleString& SimpleString::Erase(size_t index, size_t len)
 
 
 
-SimpleString SimpleString::Trim(bool bRemoveAlsoLeadingWhiteSp)
+SimpleString SimpleString::Trim(bool bRemoveAlsoLeadingWhiteSp) const
 {
   if(containsOnlyWhiteSpaces() == true)
   {
@@ -269,7 +269,7 @@ SimpleString SimpleString::Trim(bool bRemoveAlsoLeadingWhiteSp)
 }
 
 
-SimpleString SimpleString::ToLower()
+SimpleString SimpleString::ToLower() const
 {
   SimpleString lowercase = *this;
   for(size_t i = 0; i < lowercase.Length(); i++)
@@ -286,7 +286,7 @@ SimpleString SimpleString::ToLower()
 }
 
 
-bool SimpleString::containsOnlyWhiteSpaces()
+bool SimpleString::containsOnlyWhiteSpaces() const
 {
   for(size_t i=0; i < m_Len; i++)
   {

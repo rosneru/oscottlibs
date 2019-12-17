@@ -142,23 +142,23 @@ public:
    * When true only trailing white spaces are removed. When false the
    * trailing and also leading white spaces are removed.
    */
-  SimpleString Trim(bool bRemoveAlsoLeadingWhiteSp = false);
+  SimpleString Trim(bool bRemoveAlsoLeadingWhiteSp = false) const;
 
   /**
    * @brief
    * Returns a newly constructed string object where all upper case
    * letters are converted into lower case.
    *
-   * NOTE: Only plain ASCII is processed.
+   * NOTE: Only works with plain ASCII.
    *       Localization / 'umlauts' are skipped.
    */
-  SimpleString ToLower();
+  SimpleString ToLower() const;
 
 private:
   size_t m_Len;
   char *m_pBuf;
 
-  bool containsOnlyWhiteSpaces();
+  bool containsOnlyWhiteSpaces() const;
 };
 
 #endif

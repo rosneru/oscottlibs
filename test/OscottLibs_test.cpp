@@ -516,10 +516,7 @@ BOOST_AUTO_TEST_CASE( test_string_toLower )
   BOOST_CHECK(lowercase == "workbench");
 
   source = "tArAnTulLa123";
-  if(source.ToLower() == "tarantulla123")
-  {
-    printf("Yeah.\n");
-  }
+  BOOST_CHECK(source.ToLower() == "tarantulla123");
 }
 
 BOOST_AUTO_TEST_CASE( testLinkedListTypical )
