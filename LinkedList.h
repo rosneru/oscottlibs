@@ -19,8 +19,8 @@ class LinkedList
   LinkedListNode* m_pLast;
 
 public:
-  LinkedList(void);
-  ~LinkedList(void);
+  LinkedList();
+  ~LinkedList();
 
   bool InsertHead(void* pItemIns);
   bool InsertTail(void* pItemIns);
@@ -30,6 +30,8 @@ public:
                      int(*pCompareFunc) (void* pItemList, void* pItemAdd));
 
   bool RemoveItem(void);
+
+  void Clear();
 
   void* GetFirst(void);
   void* GetLast(void);

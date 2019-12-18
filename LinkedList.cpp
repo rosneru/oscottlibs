@@ -12,9 +12,9 @@ LinkedList::LinkedList()
 
 }
 
-LinkedList::~LinkedList(void)
+LinkedList::~LinkedList()
 {
-  while (RemoveItem() == true);
+  Clear();
 }
 
 bool LinkedList::RemoveItem()
@@ -64,6 +64,11 @@ bool LinkedList::RemoveItem()
 
   freeListNode(pItemToRemove);
   return true;
+}
+
+void LinkedList::Clear()
+{
+  while (RemoveItem() == true);
 }
 
 
