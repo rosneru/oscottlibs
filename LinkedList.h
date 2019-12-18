@@ -20,7 +20,7 @@ class LinkedList
 
 public:
   LinkedList();
-  ~LinkedList();
+  virtual ~LinkedList();
 
   bool InsertHead(void* pItemIns);
   bool InsertTail(void* pItemIns);

@@ -17,7 +17,7 @@ public:
                  LinkedListNode* pPrevListItem,
                  LinkedListNode* pNextListItem);  // Konstruktor
 
-  ~LinkedListNode();
+  virtual ~LinkedListNode();
 
 private:
   LinkedListNode* m_pPrv;     // Pointer auf vorheriges Verbindungselement
