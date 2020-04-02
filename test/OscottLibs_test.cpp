@@ -13,8 +13,24 @@
 #endif
 #include <boost/test/unit_test.hpp>
 #include "Array.h"
-#include "SimpleString.h"
+#include "ErrorCollector.h"
 #include "LinkedList.h"
+#include "SimpleString.h"
+
+
+BOOST_AUTO_TEST_CASE( test_ErrorCollector )
+{
+  ErrorCollector errorCollector;
+
+  const char* pFileName = "jumpman04.raw";
+  errorCollector.Add(SimpleString("Failed to allocate memory for '") + pFileName + "'.");
+  errorCollector.Add("Error while loading the anim files.");
+  errorCollector.Add("Game exited with an error.");
+
+  printf("%s", errorCollector.ErrorMessageString().C_str());
+
+}
+
 
 BOOST_AUTO_TEST_CASE( test_SimpleString_OperatorPlus )
 {
