@@ -16,6 +16,16 @@
 #include "SimpleString.h"
 #include "LinkedList.h"
 
+BOOST_AUTO_TEST_CASE( test_SimpleString_OperatorPlus )
+{
+  SimpleString str = "This message was first.";
+  BOOST_CHECK_EQUAL(str.C_str(), "This message was first.");
+
+  str = SimpleString("And this was the 2nd one. <-- ") + str;
+
+  BOOST_CHECK_EQUAL(str.C_str(), "And this was the 2nd one. <-- This message was first.");
+}
+
 BOOST_AUTO_TEST_CASE( test_Array_Basic )
 {
   Array<int> arr;
