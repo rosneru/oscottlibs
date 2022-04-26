@@ -26,8 +26,12 @@ enter it.
 
 Then call cmake to let cmake create the Makefile
 
-    cmake .. 
-    
+    cmake ..
+
+**NOTE:** If you want to debug with e.g. VisualStudioCode type instead:
+
+    cmake -DCMAKE_BUILD_TYPE=Debug ..
+
 After this the project can be compiled from within the build directory 
 by calling
 
